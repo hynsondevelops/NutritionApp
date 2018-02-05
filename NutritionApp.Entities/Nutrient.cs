@@ -7,14 +7,19 @@ using System.Threading.Tasks;
 
 namespace NutritionApp.Entities
 {
-    public class Food
+    public class Nutrient
     {
         public int Id { get; set; }
-        
-    
+
         [Required]
         [StringLength(255)]
-        public string Title { get; set; }
-        
+        public string Name { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:n2}", ApplyFormatInEditMode = true)]
+        public decimal Quantity { get; set; }
+
+        public string Unit { get; set; }
+
+        public int FoodId { get; set; }
     }
 }

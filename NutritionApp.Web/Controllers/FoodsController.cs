@@ -17,7 +17,7 @@ namespace NutritionApp.Web.Controllers
     public class FoodsController : Controller
     {
         private FoodsDb db = new FoodsDb();
-
+        private NutrientsDb nutrientsDb = new NutrientsDb();
         // GET: Foods
         public async Task<ActionResult> Index()
         {
@@ -59,11 +59,39 @@ namespace NutritionApp.Web.Controllers
                 var JSONContent = JsonConvert.DeserializeObject<JObject>(content);
                 var i = 0;
                 bool moreItems = true;
-                while (moreItems)
+                while (moreItems) //loops over items in search
                 {
                     try
                     {
-                        db.Food.Add(new Food() { Title = "" + JSONContent["list"]["item"][i]["name"] });
+                        var currentFood = new Food() { Title = "" + JSONContent["list"]["item"][i]["name"] };
+                        db.Food.Add(currentFood); //New food
+                        await db.SaveChangesAsync();
+                        //setting up nutrient array
+                        bool moreNutrients = true;
+                        var ndbno = JSONContent["list"]["item"][i]["ndbno"];
+                        var nutritionContent = client.DownloadString($"https://api.nal.usda.gov/ndb/reports/?ndbno={ndbno}&type=f&format=json&api_key=hyMAaC37dIT57p36cBZ1Sn6tK5XYfnOLP4IaNSs7");
+                        var JSONNutritionContent = JsonConvert.DeserializeObject<JObject>(nutritionContent);
+                        var j = 0;
+                        while (moreNutrients) //nutrients
+                        {
+                            try
+                            {
+                               
+                                nutrientsDb.Nutrient.Add(new Nutrient()
+                                {
+                                    Name = "" + JSONNutritionContent["report"]["food"]["nutrients"][j]["name"],
+                                    Quantity = Decimal.Parse("" + JSONNutritionContent["report"]["food"]["nutrients"][j]["value"]),
+                                    Unit = "" + JSONNutritionContent["report"]["food"]["nutrients"][j]["unit"],
+                                    FoodId = currentFood.Id
+                                });
+                            }
+                            catch
+                            {
+                                moreNutrients = false;
+                            }
+                            j += 1;
+
+                        }
                     }
                     catch
                     {
@@ -73,6 +101,7 @@ namespace NutritionApp.Web.Controllers
                 }
                 db.Food.Add(food);
                 await db.SaveChangesAsync();
+                await nutrientsDb.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
 

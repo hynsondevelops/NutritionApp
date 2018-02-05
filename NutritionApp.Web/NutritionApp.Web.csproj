@@ -193,6 +193,7 @@
     <Compile Include="Controllers\FoodsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\NutrientsController.cs" />
     <Compile Include="DataContexts\FoodMigrations\201802022245338_InitialCreate.cs" />
     <Compile Include="DataContexts\FoodMigrations\201802022245338_InitialCreate.Designer.cs">
       <DependentUpon>201802022245338_InitialCreate.cs</DependentUpon>
@@ -205,6 +206,16 @@
       <DependentUpon>201802022244385_InitialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="DataContexts\IdentityMigrations\Configuration.cs" />
+    <Compile Include="DataContexts\NutrientMigrations\201802052047176_InitialCreate.cs" />
+    <Compile Include="DataContexts\NutrientMigrations\201802052047176_InitialCreate.Designer.cs">
+      <DependentUpon>201802052047176_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DataContexts\NutrientMigrations\201802052120149_ChangedQuantityToDecimal.cs" />
+    <Compile Include="DataContexts\NutrientMigrations\201802052120149_ChangedQuantityToDecimal.Designer.cs">
+      <DependentUpon>201802052120149_ChangedQuantityToDecimal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DataContexts\NutrientMigrations\Configuration.cs" />
+    <Compile Include="DataContexts\NutrientsDb.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -277,6 +288,11 @@
     <Content Include="Views\Foods\Details.cshtml" />
     <Content Include="Views\Foods\Edit.cshtml" />
     <Content Include="Views\Foods\Index.cshtml" />
+    <Content Include="Views\Nutrients\Create.cshtml" />
+    <Content Include="Views\Nutrients\Delete.cshtml" />
+    <Content Include="Views\Nutrients\Details.cshtml" />
+    <Content Include="Views\Nutrients\Edit.cshtml" />
+    <Content Include="Views\Nutrients\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -307,6 +323,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DataContexts\IdentityMigrations\201802022244385_InitialCreate.resx">
       <DependentUpon>201802022244385_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DataContexts\NutrientMigrations\201802052047176_InitialCreate.resx">
+      <DependentUpon>201802052047176_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DataContexts\NutrientMigrations\201802052120149_ChangedQuantityToDecimal.resx">
+      <DependentUpon>201802052120149_ChangedQuantityToDecimal.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
